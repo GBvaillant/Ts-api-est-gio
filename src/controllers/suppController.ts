@@ -1,51 +1,115 @@
-import { error } from 'console'
 import { prisma } from '../database'
 import { Request, Response } from 'express'
 
 export default {
 
-    async createSupp(req: Request, res: Response) {
+    async createFornecedor(req: Request, res: Response) {
         try {
-            const { razao, end, email, nome } = req.body
-            if (razao === null) {
-                res.json({
-                    error: true,
-                    msg: 'Digite os dados corretamente !!'
-                })
-            }
-            if (end === null) {
-                res.json({
-                    error: true,
-                    msg: 'Digite os dados corretamente !!'
-                })
-            }
-            if (email === null) {
-                res.json({
-                    error: true,
-                    msg: 'Digite os dados corretamente !!'
-                })
-            }
-            if (nome === null) {
-                res.json({
-                    error: true,
-                    msg: 'Digite os dados corretamente !!'
-                })
-            }
+            const { razao, end, email, nome, nome2, email2, produto } = req.body
 
             const supp = await prisma.fornecedor.create({
                 data: {
                     razao,
                     end,
-                    email,
                     nome,
+                    email,
+                    nome2,
+                    email2,
+                    produto
                 }
             })
             return res.json({
-                error: false,
+                err: false,
                 supp
             })
-        } catch (error) {
+        } catch (err) {
+            return res.json({ msg: err.message })
+        }
+    },
 
+    async listFornecedor(req: Request, res: Response) {
+        try {
+            const fornecedores = await prisma.fornecedor.findMany({
+                select: {
+                    id: true,
+                    razao: true,
+                    end: false,
+                    nome: false,
+                    email: false,
+                    nome2: false,
+                    email2: false,
+                    produto: true
+                }
+            })
+            return res.json({
+                err: false,
+                msg: 'Fornecedores',
+                fornecedores
+            })
+        } catch (err) {
+            return res.json({ msg: err.message })
+        }
+    },
+
+    async listFornecedorId(req: Request, res: Response) {
+        try {
+            const { id } = req.params
+            const fornecedor = await prisma.fornecedor.findUnique({ where: { id: Number(id) } })
+
+            return res.json({
+                err: false,
+                msg: 'fornecedor' + id,
+                fornecedor
+            })
+        } catch (err) {
+            return res.json({ msg: err.message })
+        }
+    },
+
+    async deleteFornecedor(req: Request, res: Response) {
+        try {
+            const { id } = req.params
+            const deleteSupp = await prisma.fornecedor.delete({
+                where: { id: Number(id) }
+            })
+
+            return res.json({
+                err: false,
+                msg: 'Fornecedor deletado',
+                deleteSupp
+            })
+        } catch (err) {
+            return res.json({ msg: err.message })
+        }
+    },
+
+    async updateFornecedor(req: Request, res: Response) {
+        try {
+            const { id } = req.params
+            const { razao, end, nome, email, nome2, email2, produto } = req.body
+            const updateSupp = await prisma.fornecedor.update({
+                where: {
+                    id: Number(id)
+                },
+                data: {
+                    razao,
+                    end,
+                    nome,
+                    email,
+                    nome2,
+                    email2,
+                    produto
+                }
+            })
+            return res.json({
+                err: false,
+                msg: 'Dados atualizados',
+                updateSupp
+            })
+        }
+
+        catch (err) {
+            return res.json({ msg: err.message })
         }
     }
 }

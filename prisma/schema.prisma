@@ -11,13 +11,14 @@ datasource db {
 }
 
 model Fornecedor {
-  id    Int    @id @default(autoincrement())
-  razao String
-  end   String
-  email String
-  nome  String
+  id     Int     @id @default(autoincrement())
+  razao  String
+  end    String
+  email  String
+  nome   String
   email2 String?
-  nome2 String?
+  nome2  String?
+  produto String
 
   @@map("fornecedores")
 }
