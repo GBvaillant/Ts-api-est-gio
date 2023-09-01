@@ -9,6 +9,6 @@ Foi usado PostgreSQL rodando em ambiente virtual no docker.
 
 ## start
 Para rodar o backend é preciso ter o docker compose.
-### comandos
+### Comandos
 + docker compose up
 + yarn dev
