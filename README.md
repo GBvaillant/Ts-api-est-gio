@@ -1,5 +1,6 @@
 # API
-Api feita em TypeScript, usando Prisma como ORM e PostgreSql. Foi usado docker para virtualizar o banco de dados.
+Api feita em TypeScript, usando Prisma como ORM e PostgreSql. 
+Foi usado docker para virtualizar o banco de dados.
 
 ## CRUD
 A api contém funcionalidaes como: criar, ler, editar e excluir dados.
