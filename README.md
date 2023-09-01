@@ -7,7 +7,7 @@ A api contém algumas funcionalidaes como: criar, ler, editar e excluir dados.
 ## Banco de Dados
 Foi usado PostgreSQL rodando em ambiente virtual no docker.
 
-##start
+## start
 Para rodar o backend é preciso ter o docker compose.
 ### comandos
 docker compose up
