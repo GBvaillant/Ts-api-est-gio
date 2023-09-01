@@ -6,6 +6,14 @@ export default {
     async createFornecedor(req: Request, res: Response) {
         try {
             const { razao, end, email, nome, nome2, email2, produto } = req.body
+            const dados = [razao, end, email, nome, produto]
+
+            if (dados == null) {
+                res.json({
+                    err: true,
+                    msg: 'Preencha os campos corretamenete'
+                })
+            }
 
             const supp = await prisma.fornecedor.create({
                 data: {

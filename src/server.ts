@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { router } from './routes/suppRouter'
+import { router } from './routes/fornecedorRouter'
 
 const app = express()
 const PORT = 5000
